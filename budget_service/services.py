@@ -8,9 +8,7 @@ from common.mongo_client import db
 
 def get_userid_from_jwt(token: str):
     try:
-        print(token)
         payload = jwt.decode(token, JWT_SECRET, algorithms=[ALGORITHM])
-        print(payload)
         userId: str = payload.get("userId")
         if userId is None:
             raise HTTPException(status_code=401, detail="UserID not found in token")
