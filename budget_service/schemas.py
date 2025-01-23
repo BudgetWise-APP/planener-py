@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Optional, List
 from bson import ObjectId
 
@@ -29,12 +29,12 @@ class BudgetItemsSchema(BaseModel):
 
 
 class BudgetSchema(BaseModel):
-    userId: PyObjectId
+    id: Optional[PyObjectId] = Field(default=None, alias='_id')
+    user_id: PyObjectId
     title: str
     income: str
     currency: str
     budgetType: Optional[str] = None
-    createdAt: str
     items: BudgetItemsSchema = BudgetItemsSchema()
 
     class Config:
