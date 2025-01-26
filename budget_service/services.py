@@ -1,21 +1,7 @@
 from fastapi import HTTPException
 from budget_service.schemas import BudgetSchema
-from common.config import JWT_SECRET, ALGORITHM
-from jose import jwt, JWTError
 from bson import ObjectId
 from common.mongo_client import db
-
-
-def get_userid_from_jwt(token: str):
-    try:
-        payload = jwt.decode(token, JWT_SECRET, algorithms=[ALGORITHM])
-        userId: str = payload.get("userId")
-        if userId is None:
-            raise HTTPException(status_code=401, detail="UserID not found in token")
-        return ObjectId(userId)
-    except JWTError:
-        raise HTTPException(status_code=401, detail="Invalid token")
-
 
 class BudgetService:
     @staticmethod
