@@ -1,3 +1,4 @@
+from bson import ObjectId
 from fastapi import Depends, HTTPException, APIRouter
 from fastapi.security import OAuth2PasswordBearer
 
@@ -26,7 +27,7 @@ async def create_goal(
     user_id: str = Depends(get_current_user("userId"))
    ):
     try:
-        goal.user_id = user_id
+        goal.user_id = ObjectId(user_id)
         await GoalService.create_goal(goal)
         return {"message": "Goal created successfully"}
     except Exception as e:

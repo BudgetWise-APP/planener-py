@@ -16,8 +16,7 @@ class PyObjectId(ObjectId):
     
 
 class GoalSchema(BaseModel):
-    id: Optional[PyObjectId] = Field(default=None, alias='_id')
-    user_id: Optional[PyObjectId] = Field(default = None)
+    user_id: Optional[PyObjectId] = Field(default = None, alias='user_id')
     title: str
     description: Optional[str] = None
     goal: int

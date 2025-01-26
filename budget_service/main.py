@@ -1,3 +1,4 @@
+from bson import ObjectId
 from fastapi import Depends, HTTPException, APIRouter
 from fastapi.security import OAuth2PasswordBearer
 
@@ -27,7 +28,7 @@ async def create_budget(
     user_id: str = Depends(get_current_user("userId"))
     ):
     try:
-        budget.user_id = user_id
+        budget.user_id = ObjectId(user_id)
         await BudgetService.create_budget(budget)
         return {"message": "Budget created successfully"}
     except Exception as e:

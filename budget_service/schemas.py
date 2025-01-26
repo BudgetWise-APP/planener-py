@@ -29,8 +29,7 @@ class BudgetItemsSchema(BaseModel):
 
 
 class BudgetSchema(BaseModel):
-    id: Optional[PyObjectId] = Field(default=None, alias='_id')
-    user_id: Optional[PyObjectId] = Field(default = None)
+    user_id: Optional[PyObjectId] = Field(default = None, alias='user_id')
     title: str
     income: str
     currency: str
