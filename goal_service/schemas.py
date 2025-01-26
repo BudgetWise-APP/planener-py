@@ -17,14 +17,14 @@ class PyObjectId(ObjectId):
 
 class GoalSchema(BaseModel):
     id: Optional[PyObjectId] = Field(default=None, alias='_id')
-    user_id: PyObjectId
+    user_id: Optional[PyObjectId] = Field(default = None)
     title: str
     description: Optional[str] = None
     goal: int
     currentStatus: int
     isFavorite: bool = False
     done: bool = False
-    trackBy: str
+    trackBy: str = ""
 
     class Config:
         populate_by_name = True
