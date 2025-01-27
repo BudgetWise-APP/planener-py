@@ -67,9 +67,9 @@ async def delete_goal(goal_id: str, user_id: str = Depends(get_current_user("use
 
 
 @goals_router.post("/goals/favorite/{goal_id}", tags=["Goals"])
-async def set_favorite_goal(goal_id: str, user_id: str = Depends(get_current_user("userId"))):
+async def set_favorite_goal(goal_id: str, isFavorite: bool, user_id: str = Depends(get_current_user("userId"))):
     try:
-        goal = await GoalService.set_favorite_goal(goal_id, user_id)
+        goal = await GoalService.set_favorite_goal(goal_id, user_id, isFavorite)
         return {"goal": goal}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
