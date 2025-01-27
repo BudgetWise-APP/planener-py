@@ -13,10 +13,10 @@ class PyObjectId(ObjectId):
         if not ObjectId.is_valid(v):
             raise ValueError('Invalid ObjectId')
         return ObjectId(v)
-    
+
 
 class GoalSchema(BaseModel):
-    user_id: Optional[PyObjectId] = Field(default = None, alias='user_id')
+    user_id: Optional[PyObjectId] = Field(default=None, alias='user_id')
     title: str
     description: Optional[str] = None
     goal: float
