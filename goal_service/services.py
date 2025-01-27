@@ -23,7 +23,7 @@ class GoalService:
 
     @staticmethod
     async def create_goal(goal):
-        is_platform_used = db.goals.find_one({"platform": goal.platform})
+        is_platform_used = db.goals.find_one({"trackBy": goal.platform})
         if is_platform_used:
             raise HTTPException(
                 status_code=400, detail="Goal with this platform already exists"
@@ -48,7 +48,7 @@ class GoalService:
 
     @staticmethod
     async def update_goal(goal_id: str, goal, user_id: str):
-        is_platform_used = db.goals.find_one({"platform": goal.platform})
+        is_platform_used = db.goals.find_one({"trackBy": goal.platform})
         if is_platform_used:
             raise HTTPException(
                 status_code=400, detail="Goal with this platform already exists"
