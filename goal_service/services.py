@@ -15,6 +15,11 @@ class GoalService:
     
     @staticmethod
     async def create_goal(goal):
+        is_platform_used = db.goals.find_one({"platform": goal.platform})
+        if is_platform_used:
+            raise HTTPException(
+                status_code=400, detail="Goal with this platform already exists"
+            )
         await db.goals.insert_one(goal.model_dump(by_alias=True))
 
     @staticmethod
@@ -29,6 +34,11 @@ class GoalService:
     
     @staticmethod
     async def update_goal(goal_id: str, goal, user_id: str):
+        is_platform_used = db.goals.find_one({"platform": goal.platform})
+        if is_platform_used:
+            raise HTTPException(
+                status_code=400, detail="Goal with this platform already exists"
+            )
         await db.goals.find_one_and_update(
             {"_id": ObjectId(goal_id), "user_id": ObjectId(user_id)},
             {"$set": goal.model_dump(by_alias=True)},
