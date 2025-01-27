@@ -49,7 +49,7 @@ class GoalService:
     @staticmethod
     async def update_goal(goal_id: str, goal, user_id: str):
         is_platform_used = await db.goals.find_one({"trackBy": goal.trackBy})
-        if is_platform_used:
+        if is_platform_used and goal.isFavorite == False:
             raise HTTPException(
                 status_code=400, detail="Goal with this platform already exists"
             )
