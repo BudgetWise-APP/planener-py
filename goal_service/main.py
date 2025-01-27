@@ -51,6 +51,7 @@ async def update_goal(
     user_id: str = Depends(get_current_user("userId"))
     ):
     try:
+        goal.user_id = ObjectId(user_id)
         await GoalService.update_goal(goal_id, goal, user_id)
         return {"message": "Goal updated successfully"}
     except Exception as e:
