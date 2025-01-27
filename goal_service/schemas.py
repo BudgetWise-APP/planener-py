@@ -19,8 +19,8 @@ class GoalSchema(BaseModel):
     user_id: Optional[PyObjectId] = Field(default = None, alias='user_id')
     title: str
     description: Optional[str] = None
-    goal: int
-    currentStatus: int
+    goal: float
+    currentStatus: float
     isFavorite: bool = False
     done: bool = False
     trackBy: str = ""
