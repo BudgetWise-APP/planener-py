@@ -49,13 +49,26 @@ class GoalService:
     @staticmethod
     async def update_goal(goal_id: str, goal, user_id: str):
         is_platform_used = await db.goals.find_one({"trackBy": goal.trackBy})
-        if is_platform_used and goal.isFavorite == False:
+        if is_platform_used:
             raise HTTPException(
                 status_code=400, detail="Goal with this platform already exists"
             )
         await db.goals.find_one_and_update(
             {"_id": ObjectId(goal_id), "user_id": ObjectId(user_id)},
             {"$set": goal.model_dump(by_alias=True)},
+        )
+        return {"message": "Goal updated successfully"}
+
+    @staticmethod
+    async def set_favorite_goal(goal_id: str, user_id: str):
+        is_favorite_goals = await db.goals.find_one({"isFavorite": True})
+        if is_favorite_goals:
+            raise HTTPException(
+                status_code=400, detail="You can have only one favorite goal"
+            )
+        await db.goals.find_one_and_update(
+            {"_id": ObjectId(goal_id), "user_id": ObjectId(user_id)},
+            {"$set": {"isFavorite": True}},
         )
         return {"message": "Goal updated successfully"}
 
