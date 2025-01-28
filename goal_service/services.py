@@ -81,14 +81,18 @@ class GoalService:
 
     @staticmethod
     async def get_favorite_goals(user_id: str):
-        goals = await db.goals.find(
+        print('user_id', user_id)
+        goal = await db.goals.find_one(
             {"user_id": ObjectId(user_id), "isFavorite": True}
-        ).to_list(None)
+        )
         send_message(
             key="update_goals",
             value={"user_id": user_id},
             topic=KAFKA_TOPIC_INTEGRATIONS,
         )
-        for goal in goals:
+
+        if goal:
             goal["_id"] = str(goal["_id"])
-        return goals
+            goal["user_id"] = str(goal["user_id"])
+
+        return goal

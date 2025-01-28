@@ -75,7 +75,7 @@ async def set_favorite_goal(goal_id: str, isFavorite: bool, user_id: str = Depen
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@goals_router.get("/goals/favorite", tags=["Goals"])
+@goals_router.get("/get-favorite-goal", tags=["Goals"])
 async def get_favorite_goals(user_id: str = Depends(get_current_user("userId"))):
     try:
         goal = await GoalService.get_favorite_goals(user_id)
