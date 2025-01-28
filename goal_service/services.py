@@ -86,7 +86,7 @@ class GoalService:
             {"user_id": ObjectId(user_id), "isFavorite": True}
         )
         send_message(
-            key="user_id",
+            key=user_id,
             value={"user_id": user_id},
             topic=KAFKA_TOPIC_INTEGRATIONS,
         )
