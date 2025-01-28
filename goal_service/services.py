@@ -12,7 +12,7 @@ class GoalService:
             {"user_id": ObjectId(user_id)}, {"user_id": 0}
         ).to_list(None)
         send_message(
-            key="update_goals",
+            key="user_id",
             value={"user_id": user_id},
             topic=KAFKA_TOPIC_INTEGRATIONS,
         )
@@ -39,7 +39,7 @@ class GoalService:
             raise HTTPException(status_code=404, detail="Goal not found")
 
         send_message(
-            key="update_goals",
+            key="user_id",
             value={"user_id": user_id},
             topic=KAFKA_TOPIC_INTEGRATIONS,
         )
@@ -86,7 +86,7 @@ class GoalService:
             {"user_id": ObjectId(user_id), "isFavorite": True}
         )
         send_message(
-            key="update_goals",
+            key="user_id",
             value={"user_id": user_id},
             topic=KAFKA_TOPIC_INTEGRATIONS,
         )
